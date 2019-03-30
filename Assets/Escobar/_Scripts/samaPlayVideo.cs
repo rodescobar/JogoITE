@@ -1,30 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
-public class samaPlayVideo : MonoBehaviour
-{
-    private bool travar = false;
+public class samaPlayVideo : MonoBehaviour {
 
-    public GameObject player;
+    public GameObject monstro;
+
+    public VideoPlayer video;
+
+    public UnityStandardAssets.Characters.FirstPerson.FirstPersonController controller;
+
     // Update is called once per frame
-    void Update()
-    {
-        if (travar)
-        {
-            //Time.timeScale = 0;
-            travar = false;
-        }
+    void Update () {
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            GameObject.Find("Player").GetComponent<CharacterController>().enabled = false;
-            travar = true;
-            player.GetComponent<Animator>().SetBool("ativar", true);
-            //player.GetComponent<Animator>().Play("Running Crawl", 0, 0.25f);
+    private void OnTriggerEnter (Collider other) {
+        if (other.gameObject.CompareTag ("Player")) {
+
+            monstro.GetComponent<Animator> ().SetBool ("ativar", true);
+            video.Play ();
+
+            controller.m_WalkSpeed = (0);
         }
     }
 
