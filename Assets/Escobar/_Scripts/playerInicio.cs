@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class playerInicio : MonoBehaviour
 {
-    public Text mensagem;
+    public Text mensagemPorta;
+    public RawImage boneco;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        mensagem.enabled = false;
+        mensagemPorta.enabled = false;
+        boneco.enabled = false;
     }
 
     // Update is called once per frame
