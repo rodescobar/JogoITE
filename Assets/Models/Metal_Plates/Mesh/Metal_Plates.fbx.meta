@@ -1,41 +1,27 @@
 fileFormatVersion: 2
-guid: 302f02f10abcef34da77b6f098fbfc58
+guid: 8a21beecbe9996346a001b84ad557fd9
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Body
-    100002: Eyelashes
-    100004: Eyes
-    100006: Hair
-    100008: //RootNode
-    100010: Tops
-    400000: Body
-    400002: Eyelashes
-    400004: Eyes
-    400006: Hair
-    400008: //RootNode
-    400010: Tops
-    2100000: BodyMat
-    2100002: EyelashesMat
-    2100004: EyesMat
-    2100006: HairMat
-    2100008: TopsMat
-    2100010: PackedMaterial0
-    2300000: Body
-    2300002: Eyelashes
-    2300004: Eyes
-    2300006: Hair
-    2300008: Tops
-    3300000: Body
-    3300002: Eyelashes
-    3300004: Eyes
-    3300006: Hair
-    3300008: Tops
-    4300000: Body
-    4300002: Eyelashes
-    4300004: Eyes
-    4300006: Hair
-    4300008: Tops
+    100000: Metal_Plate_LOD0
+    100002: Metal_Plate_LOD1
+    100004: Metal_Plate_LOD2
+    100006: //RootNode
+    400000: Metal_Plate_LOD0
+    400002: Metal_Plate_LOD1
+    400004: Metal_Plate_LOD2
+    400006: //RootNode
+    2100000: No Name
+    2300000: Metal_Plate_LOD0
+    2300002: Metal_Plate_LOD1
+    2300004: Metal_Plate_LOD2
+    3300000: Metal_Plate_LOD0
+    3300002: Metal_Plate_LOD1
+    3300004: Metal_Plate_LOD2
+    4300000: Metal_Plate_LOD2
+    4300002: Metal_Plate_LOD1
+    4300004: Metal_Plate_LOD0
+    20500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -66,11 +52,13 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -95,10 +83,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -112,6 +97,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
