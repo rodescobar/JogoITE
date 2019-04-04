@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class pontaCabeca : MonoBehaviour
 {
+    public Text mensagemFimJogo;
     //Argumentos para funcionamento
     public float velocidade;
     public GameObject player;
@@ -27,6 +29,7 @@ public class pontaCabeca : MonoBehaviour
     private void Start()
     {
         _animacao.SetBool("ativar", false);
+        mensagemFimJogo.enabled = false;
     }
 
     private void Update() {
@@ -48,6 +51,10 @@ public class pontaCabeca : MonoBehaviour
             float posX = transform.position.y;
             //controller.transform.LookAt(posicaoInicial);
 
+        }
+
+        if(mensagemFimJogo.enabled && (Input.GetKeyDown(KeyCode.Return))) {
+            Application.LoadLevel(Application.loadedLevel);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -91,6 +98,9 @@ public class pontaCabeca : MonoBehaviour
 
                 //transform.position = new Vector3(0,_lanterna.transform.position.y, _lanterna.transform.position.z);
                 transform.transform.Rotate(0,0, 180);
+
+                //yield WaitForSeconds (3.0);
+                mensagemFimJogo.enabled = true;
             }
 
         }
