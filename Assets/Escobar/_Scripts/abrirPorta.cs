@@ -7,8 +7,6 @@ public class abrirPorta : MonoBehaviour {
     public Animator _animacao;
     public Text mensagem;
 
-    private bool _portaAberta = false;
-
     private bool colisaoPlayer = false;
 
     void Update () {
