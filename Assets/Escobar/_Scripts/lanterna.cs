@@ -44,7 +44,7 @@ public class lanterna : MonoBehaviour
         {
             //Vai tirando 1seg do tempo
             carga -= Time.deltaTime;
-            luz.intensity = 0.1f + 10 * carga / cargaMaxima;
+            luz.intensity = 0.1f + 3 * carga / cargaMaxima;
 
         }
 
@@ -63,21 +63,21 @@ public class lanterna : MonoBehaviour
             carga = cargaMaxima;
         }
 
-        if (carga > 200)
+        if (luz.intensity > 2)
         {
             cheio.SetActive(true);
             meio.SetActive(false);
             vazio.SetActive(false);
             acabou.SetActive(false);
         }
-        else if (carga > 100 && carga <= 200)
+        else if (luz.intensity > 1 && luz.intensity <= 2)
         {
             cheio.SetActive(false);
             meio.SetActive(true);
             vazio.SetActive(false);
             acabou.SetActive(false);
         }
-        else if (carga > 10 && carga <= 100)
+        else if (luz.intensity > 0.1f && luz.intensity < 1)
         {
             cheio.SetActive(false);
             meio.SetActive(false);
