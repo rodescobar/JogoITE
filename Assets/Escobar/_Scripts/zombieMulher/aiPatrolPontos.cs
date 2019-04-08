@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class aiPatrolPontos : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject referencialPlayer;
+    public UnityStandardAssets.Characters.FirstPerson.FirstPersonController controller;
+    public Text mensagemFimJogo;
+
     public float speed;
     public Transform[] moveSpots;
-
-    private int randomSpots;
 
     public NavMeshAgent agent;
 
@@ -17,11 +22,12 @@ public class aiPatrolPontos : MonoBehaviour
     private int marcador;
 
     public Animator animator;
-    public AudioSource[] audio;
+    public new AudioSource[] audio;
 
-    private bool podeAndar = true;
+    public static bool podeAndar = true;
     private bool atacarPlayer = false;
-    private float tempoGrito = 1.5f;
+
+    public bool podeAtacar = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,25 +37,39 @@ public class aiPatrolPontos : MonoBehaviour
         marcador = Random.Range(0, 2) == 0 ? 1 : 2;
 
         animator = GetComponent<Animator>();
-        animator.SetInteger("situacao",1);
+        animator.SetBool("andar", true);
+        mensagemFimJogo.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!atacarPlayer) {
+        if (!atacarPlayer)
+        {
             MovimentaMarcacao();
+        }
+        else
+        {
+            MovimentaPlayer();
+        }
+
+        if(mensagemFimJogo.enabled && (Input.GetKeyDown(KeyCode.Return))) {
+            SceneManager.LoadScene("SampleScene");
         }
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        //Achou o player, gritar
+        if (col.gameObject.CompareTag("Player") && (!atacarPlayer) && (podeAtacar))
         {
-            animator.SetInteger("situacao",2);
             atacarPlayer = true;
+            podeAndar = false;
+
+            //Gritar
+            animator.SetBool("andar", false);
+            animator.SetBool("correr", true);
             audio[0].Play();
-            //animator.SetInteger("situacao",3);
         }
     }
 
@@ -57,51 +77,81 @@ public class aiPatrolPontos : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            animator.SetInteger("situacao",1);
+            //situacaoAnimacoes(true, false, false, false);
             atacarPlayer = false;
+            podeAndar = true;
         }
-    }    
+    }
 
-    private void MovimentaMarcacao() {
-        //transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpots].position, speed * Time.deltaTime);
-
-        if ((Vector3.Distance(transform.position, moveSpots[marcador].position) <= 0.6f) && (podeAndar))
+    private void MovimentaPlayer()
+    {
+        if (atacarPlayer)
         {
-            animator.SetInteger("situacao",0);
-            podeAndar = false;
-        }
-        else if (!podeAndar)
-        {
-            //animator.SetBool("andar", true);
-            esperar -= Time.deltaTime;
-            if (esperar <= 0)
+            if ((Vector3.Distance(transform.position, player.transform.position) <= 2f))
             {
-                animator.SetInteger("situacao",1);
-                if (marcador == 0)
-                {
-                    marcador = Random.Range(0, 2) == 0 ? 1 : 3;
-                }
-                else if (marcador == 1)
-                {
-                    marcador = Random.Range(0, 2) == 0 ? 0 : 2;
-                }
-                else if (marcador == 2)
-                {
-                    marcador = Random.Range(0, 2) == 0 ? 1 : 3;
-                }
-                else
-                {
-                    marcador = Random.Range(0, 2) == 0 ? 0 : 2;
-                }
-                esperar = tempoEspera;
-                podeAndar = true;
-            }
+                animator.SetBool("atacar", true);
+                mensagemFimJogo.enabled = true;
 
+            }
+            else
+            {
+                agent.SetDestination(Vector3.MoveTowards(transform.position, player.transform.position, 6 * speed * Time.deltaTime));
+
+                //Faz player Olhar para a zombie
+                player.transform.LookAt(transform.position);
+                player.transform.LookAt(referencialPlayer.transform.position);
+                controller.enabled = false;
+
+            }
         }
-        else if (podeAndar)
+    }
+
+    private void MovimentaMarcacao()
+    {
+        if (!atacarPlayer)
         {
-            animator.SetInteger("situacao",1);
-            agent.SetDestination(Vector3.MoveTowards(transform.position, moveSpots[marcador].position, speed * Time.deltaTime));
-        }        
+
+            if ((Vector3.Distance(transform.position, moveSpots[marcador].position) <= 0.6f) && (podeAndar))
+            {
+                //Parar
+                animator.SetBool("andar", false);
+                podeAndar = false;
+            }
+            else if (!podeAndar)
+            {
+                //animator.SetBool("andar", true);
+                esperar -= Time.deltaTime;
+                if (esperar <= 0)
+                {
+                    //Andar
+                    animator.SetBool("andar", true);
+                    if (marcador == 0)
+                    {
+                        marcador = Random.Range(0, 2) == 0 ? 1 : 3;
+                    }
+                    else if (marcador == 1)
+                    {
+                        marcador = Random.Range(0, 2) == 0 ? 0 : 2;
+                    }
+                    else if (marcador == 2)
+                    {
+                        marcador = Random.Range(0, 2) == 0 ? 1 : 3;
+                    }
+                    else
+                    {
+                        marcador = Random.Range(0, 2) == 0 ? 0 : 2;
+                    }
+                    esperar = tempoEspera;
+                    podeAndar = true;
+                }
+
+            }
+            else if (podeAndar)
+            {
+                animator.SetBool("andar", true);
+                agent.SetDestination(Vector3.MoveTowards(transform.position, moveSpots[marcador].position, speed * Time.deltaTime));
+            }
+        }
+
     }
 }

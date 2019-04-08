@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class zombieNTE : MonoBehaviour
 {
-    public AudioSource audio;
+    public new AudioSource audio;
 
     public Animator _animacao;
     // Start is called before the first frame update

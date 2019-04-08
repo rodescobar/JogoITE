@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class pontaCabeca : MonoBehaviour
@@ -10,7 +11,7 @@ public class pontaCabeca : MonoBehaviour
     public float velocidade;
     public GameObject player;
     public GameObject referencialPlayer;
-    public AudioSource[] audio;
+    public new AudioSource[] audio;
     public Animator _animacao;
 
     //Para bloquear o player
@@ -54,7 +55,7 @@ public class pontaCabeca : MonoBehaviour
         }
 
         if(mensagemFimJogo.enabled && (Input.GetKeyDown(KeyCode.Return))) {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene("SampleScene");
         }
     }
     private void OnTriggerEnter(Collider other)

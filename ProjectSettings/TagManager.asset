@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MarcacaoZombie
+  - Laboratorio
   layers:
   - Default
   - TransparentFX

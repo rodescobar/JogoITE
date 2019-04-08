@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class bonecoColider : MonoBehaviour
 {
-    public AudioSource audio;
+    public new AudioSource audio;
     public GameObject boneco;
 
     public RawImage mensagemUi;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class gritos : MonoBehaviour
 {
     //Lista de audio possiveis.
-    public AudioSource[] audio;
+    public new AudioSource[] audio;
 
     public GameObject scriptOnline;
   
